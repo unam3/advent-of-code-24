@@ -1,6 +1,6 @@
 module RedNosedReports where
 
-import Data.List (foldl')
+--import Data.List (foldl')
 
 type Level = Int
 type Report = [Level]
@@ -19,11 +19,6 @@ type IsItSafe = Bool
 
 type IsItSafeResult = Either String String
 
-isItSafe :: Report -> IsItSafeResult
-isItSafe = undefined
--- take two levels at a time and compare them
-
-
 isPairSafe :: Int -> Int -> IsItSafeResult
 isPairSafe a b =
     
@@ -31,7 +26,7 @@ isPairSafe a b =
         absDifference = abs difference
 
         in if absDifference >= 1
-            || absDifference <= 3
+            && absDifference <= 3
 
             then if difference > 0
                 
@@ -41,3 +36,12 @@ isPairSafe a b =
 
             else Left $ (show [a, b]) ++ " are UNSAFE"
 
+
+
+makeTupleList :: [a] -> [(a, a)]
+
+makeTupleList list = zip list $ tail list
+
+
+isReportSafe :: Report -> [IsItSafeResult]
+isReportSafe = fmap (uncurry isPairSafe) . makeTupleList
