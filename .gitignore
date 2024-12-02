@@ -4,3 +4,4 @@
 .vscode
 .history
 config.ini
+stack.yaml.lock
