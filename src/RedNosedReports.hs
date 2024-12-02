@@ -27,12 +27,17 @@ isItSafe = undefined
 isPairSafe :: Int -> Int -> IsItSafeResult
 isPairSafe a b =
     
-    let difference = abs $ subtract a b
+    let difference = subtract a b
+        absDifference = abs difference
 
-        in if difference >= 1
-            || difference <= 3
+        in if absDifference >= 1
+            || absDifference <= 3
 
-            then Right $ (show [a, b]) ++ " are safe"
+            then if difference > 0
+                
+                then Right $ (show [a, b]) ++ " are safe and increasing"
+
+                else Right $ (show [a, b]) ++ " are safe and decreasing"
 
             else Left $ (show [a, b]) ++ " are UNSAFE"
 
