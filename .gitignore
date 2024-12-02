@@ -1,0 +1,6 @@
+.stack-work/
+*~
+*.swp
+.vscode
+.history
+config.ini
