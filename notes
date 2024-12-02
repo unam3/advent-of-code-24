@@ -2,3 +2,10 @@
     one *report* per line
 
     report is a list of numbers called *levels* that are separated by spaces
+
+    + parse input
+
+    - implement isItSafe function (Marathon Man!)
+
+    - How many reports are safe?
+

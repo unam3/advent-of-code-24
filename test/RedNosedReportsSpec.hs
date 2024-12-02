@@ -13,6 +13,11 @@ spec = do
     describe "parseInput" $ do
         it "works"
             $ shouldBe
-                (parseInput testInput)
+                (show $ parseInput testInput)
                 "42"
 
+    describe "isPairSafe" $ do
+        it "works"
+            $ shouldBe
+                (show $ isPairSafe 1 1)
+                "42"
