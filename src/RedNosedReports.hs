@@ -15,12 +15,18 @@ parseInput =
     . lines
 
 
-type IsItSafe = Bool
+type IsItSafeResult = Either String (String, MaybeDirection)
 
-type IsItSafeResult = Either String String
+--isIncreasing = True
+--
+--isDecreasing = False
 
-isPairSafe :: Int -> Int -> IsItSafeResult
-isPairSafe a b =
+type IsDirection = Bool
+
+type MaybeDirection = Maybe IsDirection
+
+isPairSafe :: MaybeDirection -> Int -> Int -> IsItSafeResult
+isPairSafe maybeDirection a b =
     
     let difference = subtract a b
         absDifference = abs difference
@@ -29,10 +35,27 @@ isPairSafe a b =
             && absDifference <= 3
 
             then if difference > 0
-                
-                then Right $ (show [a, b]) ++ " are safe and increasing"
+                && (maybeDirection == Nothing
+                    || (maybeDirection == (Just True))
+                    )
 
-                else Right $ (show [a, b]) ++ " are safe and decreasing"
+                    then Right (
+                        
+                        (show [a, b]) ++ " are safe and increasing",
+                        
+                        Just True
+                        )
+
+                    else if
+                        maybeDirection == Nothing
+                        || (maybeDirection == (Just False)
+                        )
+                        
+                        then Right (
+                            (show [a, b]) ++ " are safe and decreasing",
+                            Just False
+                            )
+                        else Left $ (show [a, b]) ++ " are UNSAFE: inconsistent direction"
 
             else Left $ (show [a, b]) ++ " are UNSAFE"
 
@@ -44,4 +67,8 @@ makeTupleList list = zip list $ tail list
 
 
 isReportSafe :: Report -> [IsItSafeResult]
-isReportSafe = fmap (uncurry isPairSafe) . makeTupleList
+isReportSafe =
+    
+    fmap (\ (a, b) -> isPairSafe Nothing a b)
+        
+    . makeTupleList

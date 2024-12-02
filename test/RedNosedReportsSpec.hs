@@ -25,22 +25,22 @@ spec = do
     describe "isPairSafe" $ do
         it "1 2"
             $ shouldBe
-                (show $ isPairSafe 1 2)
-                "Right \"[1,2] are safe and increasing\""
+                (show $ isPairSafe Nothing 1 2)
+                "Right (\"[1,2] are safe and increasing\",Just True)"
 
         it "2 1"
             $ shouldBe
-                (show $ isPairSafe 2 1)
-                "Right \"[2,1] are safe and decreasing\""
+                (show $ isPairSafe Nothing 2 1)
+                "Right (\"[2,1] are safe and decreasing\",Just False)"
 
-        it "1 1"
+        it "(Just True) 2 1"
             $ shouldBe
-                (show $ isPairSafe 1 1)
-                "Left \"[1,1] are UNSAFE\""
+                (show $ isPairSafe (Just True) 2 1)
+                "Left \"[2,1] are UNSAFE: inconsistent direction\""
 
         it "6 2"
             $ shouldBe
-                (show $ isPairSafe 6 2)
+                (show $ isPairSafe Nothing 6 2)
                 "Left \"[6,2] are UNSAFE\""
 
 

@@ -5,7 +5,9 @@
 
     + parse input
 
-    - implement isItSafe function (Marathon Man!)
+    . implement isReportSafe function
+        
+        . take into account direction of change: change fmap to foldl'
 
     - How many reports are safe?
 
